@@ -1,0 +1,14 @@
+- 包名
+  # 按功能分包
+  - mvp
+    # MVP架构(拟代一个功能)
+    - Model
+    - View
+    - Presenter
+  - mvvm
+    # MVVM架构(拟代一个功能)
+    - Model
+    - View
+    - ViewModel
+  - noframework
+    # 不使用架构(拟代一个功能)

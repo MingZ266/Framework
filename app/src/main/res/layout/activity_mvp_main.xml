@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:orientation="vertical"
+    tools:context=".mvp.view.MvpMainActivity"
+    tools:ignore="HardcodedText">
+
+    <EditText
+        android:id="@+id/inputLink"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="输入请求URL"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/bg_outline_teal"
+        android:textCursorDrawable="@drawable/cursor_color"
+        android:inputType="textUri"
+        android:autofillHints="textUri"/>
+
+    <Button
+        android:id="@+id/sendRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_btn"
+        android:text="请求网络数据"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/resultTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        tools:text="请求结果："
+        android:textColor="@color/purple_500"
+        android:textSize="18sp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/resultMessageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/frameworkType"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/bg_outline_purple"
+            android:scrollbars="none"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/resultMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                tools:text="@string/testScrollText"
+                android:textColor="@color/purple_700"
+                android:textSize="22sp"
+                android:textIsSelectable="true"/>
+
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/frameworkType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
+            android:text="MVP Framework"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
