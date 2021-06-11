@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -67,20 +68,25 @@ public class NoMainActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(url)) {
                 showToast("输入不能为空");
             } else {
-                // 展示等待弹窗
-                View waitView = View.inflate(activity, R.layout.dialog_wait, null);
-                waitDialog = new AlertDialog.Builder(activity, R.style.CircleCornerAlertDialog)
-                        .setView(waitView)
-                        .create();
-                waitDialog.setCancelable(false);
-                waitDialog.setCanceledOnTouchOutside(false);
-                waitView.findViewById(R.id.wait).setAnimation(AnimationUtils.loadAnimation(activity, R.anim.rotate_wait));
-                waitDialog.show();
-                // 隐藏结果区域
-                resultTitle.setVisibility(View.INVISIBLE);
-                resultMessageLayout.setVisibility(View.INVISIBLE);
-                // 网络请求
-                sendRequest(url);
+                HttpUrl httpUrl = HttpUrl.parse(url);
+                if (httpUrl != null) {
+                    // 展示等待弹窗
+                    View waitView = View.inflate(activity, R.layout.dialog_wait, null);
+                    waitDialog = new AlertDialog.Builder(activity, R.style.CircleCornerAlertDialog)
+                            .setView(waitView)
+                            .create();
+                    waitDialog.setCancelable(false);
+                    waitDialog.setCanceledOnTouchOutside(false);
+                    waitView.findViewById(R.id.wait).setAnimation(AnimationUtils.loadAnimation(activity, R.anim.rotate_wait));
+                    waitDialog.show();
+                    // 隐藏结果区域
+                    resultTitle.setVisibility(View.INVISIBLE);
+                    resultMessageLayout.setVisibility(View.INVISIBLE);
+                    // 网络请求
+                    sendRequest(httpUrl);
+                } else {
+                    showToast("请输入以http或https为开头的合法链接");
+                }
             }
         });
     }
@@ -96,7 +102,7 @@ public class NoMainActivity extends AppCompatActivity {
         }
     }
 
-    private void sendRequest(String url) {
+    private void sendRequest(HttpUrl url) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(5, TimeUnit.SECONDS)

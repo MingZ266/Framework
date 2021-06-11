@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -24,7 +25,7 @@ public class MvpMainModel implements MvpMainModelImpl {
     }
 
     @Override
-    public void sendRequest(String url) {
+    public void sendRequest(HttpUrl url) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(5, TimeUnit.SECONDS)

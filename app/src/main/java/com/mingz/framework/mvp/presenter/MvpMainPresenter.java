@@ -10,6 +10,8 @@ import com.mingz.framework.utils.MyLog;
 
 import java.io.IOException;
 
+import okhttp3.HttpUrl;
+
 public class MvpMainPresenter implements MvpMainPresenterImpl {
     private final MyLog myLog = new MyLog("MvpMainMyTAG");
 
@@ -26,9 +28,14 @@ public class MvpMainPresenter implements MvpMainPresenterImpl {
         if (TextUtils.isEmpty(url)) {
             mvpMainView.showToast("输入不能为空");
         } else {
-            mvpMainView.hideResultArea();
-            mvpMainView.showWaitDialog();
-            mvpMainModel.sendRequest(url);
+            HttpUrl httpUrl = HttpUrl.parse(url);
+            if (httpUrl != null) {
+                mvpMainView.hideResultArea();
+                mvpMainView.showWaitDialog();
+                mvpMainModel.sendRequest(httpUrl);
+            } else {
+                mvpMainView.showToast("请输入以http或https为开头的合法链接");
+            }
         }
     }
 
